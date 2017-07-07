@@ -11,17 +11,21 @@ void	usage()
 void	read_file(char *filename)
 {
 				int		fd; // File descriptor
-				char	buff[256]; //buffer size
+				int		bsize;		//buff size
+				char	buff[5]; //buffer size
 
-				fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC);
+				bsize = sizeof(buff);
+				fd = open(filename, O_RDONLY);
 				if (fd == -1)
 				{
 								write(1, "File not found\n", 15);
 				}
 				else
 				{
-								close(fd);
+								while( read(fd, buff, 5) > 0)
+									printf("\n%s, \n", buff);
 				}
+				close(fd);
 }
 
 int	main(int argc, char **argv)
